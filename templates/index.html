@@ -1,0 +1,116 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>MeKisan-Comming Soon</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="MeKisan is coming soon. Stay tuned for exciting updates and announcements.">
+    <meta name="keywords" content="MeKisan, Coming Soon, Updates, Announcements">
+    <meta name="author" content="MeKisna">
+
+    <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}" />
+
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <meta name="robots" content="noindex, follow">
+</head>
+<body>
+    <div class="bg-img1 size1 flex-w flex-c-m p-t-55 p-b-55 p-l-15 p-r-15" style="background-image: url({% static 'images/bg.jpeg' %})">
+        <div class="wsize1 bor1 bg1 p-t-175 p-b-45 p-l-15 p-r-15 respon1">
+            <div class="wrappic1">
+                <img src="{% static 'images/icons/logo.png' %}" alt="LOGO">
+            </div>
+            <p class="txt-center m1-txt1 p-t-33 p-b-68">
+                Our website is under construction
+            </p>
+           <!-- ... (previous content) ... -->
+				<!-- ... (previous content) ... -->
+				<!-- ... (previous content) ... -->
+					<div class=" flex-w flex-c hsize1 cd100 d-flex justify-content-center">
+						<div class="flex-col-c-m size2 how-countdown mx-2">
+							<span class="l1-txt1 p-b-9 days" id="days">0</span>
+							<span class="s1-txt1 d-block">Days</span>
+						</div>
+						<div class="flex-col-c-m size2 how-countdown mx-2">
+							<span class="l1-txt1 p-b-9 hours" id="hours">0</span>
+							<span class="s1-txt1 d-block">Hours</span>
+						</div>
+						<div class="flex-col-c-m size2 how-countdown mx-2">
+							<span class="l1-txt1 p-b-9 minutes" id="minutes">0</span>
+							<span class="s1-txt1 d-block">Minutes</span>
+						</div>
+						<div class="flex-col-c-m size2 how-countdown mx-2">
+							<span class="l1-txt1 p-b-9 seconds" id="seconds">0</span>
+							<span class="s1-txt1 d-block">Seconds</span>
+						</div>
+					</div>
+
+
+            <form class="flex-w flex-c-m contact100-form validate-form p-t-55" action="{% url 'subscribe' %}" method="post">
+                {% csrf_token %}
+                <div class="wrap-input100 validate-input where1" data-validate="Email is required: ex@abc.xyz">
+                    <input class="s1-txt2 placeholder0 input100" type="email" name="email" placeholder="Your Email" required>
+                    <span class="focus-input100"></span>
+                </div>
+                <button class="flex-c-m s1-txt3 size3 how-btn trans-04 where1" type="submit">
+                    Get Notified
+                </button>
+            </form>
+            <p class="s1-txt4 txt-center p-t-10">
+                I promise to <span class="bor2">never</span> spam
+            </p>
+        </div>
+    </div>
+
+    <script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'vendor/select2/select2.min.js' %}"></script>
+    <script src="{% static 'vendor/countdowntime/moment.min.js' %}"></script>
+    <script src="{% static 'vendor/countdowntime/moment-timezone.min.js' %}"></script>
+    <script src="{% static 'vendor/countdowntime/moment-timezone-with-data.min.js' %}"></script>
+    <script src="{% static 'vendor/countdowntime/countdowntime.js' %}"></script>
+	
+<script>
+    // Get the end time from the session and initialize the countdown timer
+    var end_time = '{{ request.session.end_time }}';
+    if (end_time) {
+        var endtime = new Date(end_time);
+        var countdownInterval = setInterval(function() {
+            var now = new Date().getTime();
+            var distance = endtime - now;
+
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Update the countdown display
+            document.getElementById("days").innerHTML = days;
+            document.getElementById("hours").innerHTML = hours;
+            document.getElementById("minutes").innerHTML = minutes;
+            document.getElementById("seconds").innerHTML = seconds;
+
+            // If the countdown is over, show a message
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("days").innerHTML = "0";
+                document.getElementById("hours").innerHTML = "0";
+                document.getElementById("minutes").innerHTML = "0";
+                document.getElementById("seconds").innerHTML = "0";
+                document.getElementById("countdown-message").innerHTML = "The website is now live!";
+            }
+        }, 1000);
+    }
+</script>
+</body>
+</html>
+
+
+
